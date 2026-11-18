@@ -3,6 +3,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Logo } from '../common/Logo';
 import { Button } from '../common/Button';
 import { ConsultingBrandIcon, StaffingBrandIcon } from '../common/BrandIcons';
+import { useModal } from '../../context/ModalContext';
 import { COMPANY_INFO } from '../../constants/company';
 import { 
   Phone, 
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
+  const { openEnquiryModal } = useModal();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -177,10 +179,10 @@ export const Header: React.FC = () => {
             </NavLink>
           </nav>
 
-          {/* Action Button: Let's Talk CTA */}
+          {/* Action Button: Let's Talk CTA (Opens Consultation Modal) */}
           <div className="hidden lg:flex items-center space-x-4">
             <Button 
-              to="/contact" 
+              onClick={openEnquiryModal} 
               variant="primary" 
               size={isScrolled ? 'sm' : 'md'} 
               className={isScrolled ? 'rounded-full px-5 py-2 text-xs shadow-sm' : 'rounded-lg'}
@@ -273,7 +275,15 @@ export const Header: React.FC = () => {
               <span>{COMPANY_INFO.email}</span>
             </a>
             <div className="pt-1">
-              <Button to="/contact" variant="primary" size="sm" className="w-full rounded-full">
+              <Button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  openEnquiryModal();
+                }} 
+                variant="primary" 
+                size="sm" 
+                className="w-full rounded-full"
+              >
                 Let's Talk
               </Button>
             </div>
