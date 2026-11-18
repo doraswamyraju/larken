@@ -44,7 +44,7 @@ export const ConsultingPage: React.FC = () => {
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Enterprise Technology Advisory</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
                 IT Consulting Services
               </h1>
               <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
@@ -150,22 +150,42 @@ export const ConsultingPage: React.FC = () => {
       {/* Engagement Models Banner */}
       <section className="py-20 bg-white border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-larken-navy via-larken-navyDark to-[#071D3B] rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-card">
-            <div className="relative z-10 max-w-3xl space-y-5">
-              <span className="text-xs font-bold uppercase tracking-wider text-larken-cyan px-3 py-1 rounded-full bg-white/10">
-                Consulting Engagement Models
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold leading-tight">
-                Tailored Engagements Built for Enterprise Flexibility
-              </h2>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                Whether you need an upfront architecture audit, a turnkey fixed-scope implementation, or long-term fractional technical leadership, we configure our consulting teams to align with your corporate governance standards.
-              </p>
-              <div className="pt-2">
-                <Button to="/contact" variant="primary" size="lg">
-                  Schedule a Technical Discovery Call
-                </Button>
+          <div className="bg-gradient-to-r from-larken-navy via-larken-navyDark to-[#071D3B] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-card">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              
+              <div className="lg:col-span-7 space-y-5">
+                <span className="text-xs font-bold uppercase tracking-wider text-larken-cyan px-3 py-1 rounded-full bg-white/10">
+                  Consulting Engagement Models
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-extrabold leading-tight text-white">
+                  Tailored Engagements Built for Enterprise Flexibility
+                </h2>
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Whether you need an upfront architecture audit, a turnkey fixed-scope implementation, or long-term fractional technical leadership, we configure our consulting teams to align with your corporate governance standards.
+                </p>
+                <div className="pt-2">
+                  <Button to="/contact" variant="primary" size="lg">
+                    Schedule a Technical Discovery Call
+                  </Button>
+                </div>
               </div>
+
+              {/* Generated AI/Cloud Data Center Visual */}
+              <div className="lg:col-span-5">
+                <div className="rounded-2xl overflow-hidden shadow-xl border border-white/20 img-zoom-container group relative">
+                  <img
+                    src="/images/ai-cloud-consulting.jpg"
+                    alt="Larken Technologies Enterprise Cloud & AI Architecture"
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-3 left-3 right-3 text-xs text-white font-medium flex justify-between items-center">
+                    <span className="font-semibold text-larken-cyan">AI & Cloud Infrastructure</span>
+                    <span className="text-slate-300">Enterprise Grade</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

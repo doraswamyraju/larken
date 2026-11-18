@@ -44,7 +44,7 @@ export const StaffingPage: React.FC = () => {
                 <Users className="w-3.5 h-3.5" />
                 <span>Specialized US Technology Staffing</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
                 IT Staffing & Talent Acquisition
               </h1>
               <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
@@ -188,6 +188,44 @@ export const StaffingPage: React.FC = () => {
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Deploy cohesive multi-disciplinary squads (Tech Lead, Full-Stack Devs, QA, DevOps) fully equipped to own and deliver an entire feature set or modernization track.
               </p>
+            </div>
+          </div>
+
+          {/* Recruiter & Candidate Showcase Card */}
+          <div className="mt-16 bg-gradient-to-r from-larken-navy via-larken-navyDark to-[#071D3B] rounded-3xl p-8 sm:p-12 text-white shadow-card overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 px-3 py-1 rounded-full bg-white/10">
+                  Elite Candidate Vetting
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  Architect-Led Technical Screening
+                </h3>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  Every software engineer and specialist submitted to your team has undergone real-world technical assessments, architectural evaluations, and culture-fit interviews by veteran US engineers.
+                </p>
+                <div className="pt-2">
+                  <Button to="/contact" variant="primary" size="md">
+                    Schedule a Talent Discovery Call
+                  </Button>
+                </div>
+              </div>
+
+              {/* Generated Staffing Visual */}
+              <div className="lg:col-span-5">
+                <div className="rounded-2xl overflow-hidden shadow-xl border border-white/20 img-zoom-container group relative">
+                  <img
+                    src="/images/enterprise-staffing.jpg"
+                    alt="Larken Technologies Executive Technical Interview"
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-3 left-3 right-3 text-xs text-white font-medium flex justify-between items-center">
+                    <span className="font-semibold text-emerald-400">Technical Interviewing</span>
+                    <span className="text-slate-300">Overland Park, KS</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

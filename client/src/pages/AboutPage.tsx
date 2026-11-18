@@ -25,7 +25,7 @@ export const AboutPage: React.FC = () => {
             <MapPin className="w-3.5 h-3.5" />
             <span>Overland Park, Kansas, USA</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
             About Larken Technologies LLC
           </h1>
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">

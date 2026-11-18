@@ -3,8 +3,6 @@ import { SectionHeading } from '../common/SectionHeading';
 import { Button } from '../common/Button';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { 
-  Cpu, 
-  Users, 
   ArrowRight, 
   CheckCircle2
 } from 'lucide-react';
@@ -38,20 +36,14 @@ export const ServicesOverview: React.FC = () => {
             style={{ transitionDelay: '150ms' }}
           >
             <div>
-              {/* Official Supplied Graphic Banner */}
-              <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 img-zoom-container">
-                <img
-                  src="/images/it-consulting.jpg"
-                  alt="IT Consulting - Larken Technologies LLC"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-6 right-6 flex items-center justify-between text-white">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-larken-cyan border border-white/20">
-                    <Cpu className="w-3.5 h-3.5" />
-                    <span>Strategic Solutions</span>
-                  </div>
-                  <span className="text-xs text-slate-300 font-medium">8 Practice Areas</span>
+              {/* Official Supplied Graphic - Full Uncropped 1:1 Presentation */}
+              <div className="p-5 sm:p-7 bg-slate-900/5 border-b border-slate-100 flex items-center justify-center overflow-hidden">
+                <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden shadow-card border border-slate-200/80 bg-white">
+                  <img
+                    src="/images/it-consulting.jpg"
+                    alt="IT Consulting - Larken Technologies LLC"
+                    className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                  />
                 </div>
               </div>
 
@@ -114,20 +106,14 @@ export const ServicesOverview: React.FC = () => {
             style={{ transitionDelay: '300ms' }}
           >
             <div>
-              {/* Official Supplied Graphic Banner */}
-              <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 img-zoom-container">
-                <img
-                  src="/images/it-staffing.jpg"
-                  alt="IT Staffing - Larken Technologies LLC"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-6 right-6 flex items-center justify-between text-white">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-emerald-300 border border-white/20">
-                    <Users className="w-3.5 h-3.5" />
-                    <span>Specialized Talent</span>
-                  </div>
-                  <span className="text-xs text-slate-300 font-medium">7 Talent Disciplines</span>
+              {/* Official Supplied Graphic - Full Uncropped 1:1 Presentation */}
+              <div className="p-5 sm:p-7 bg-slate-900/5 border-b border-slate-100 flex items-center justify-center overflow-hidden">
+                <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden shadow-card border border-slate-200/80 bg-white">
+                  <img
+                    src="/images/it-staffing.jpg"
+                    alt="IT Staffing - Larken Technologies LLC"
+                    className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                  />
                 </div>
               </div>
 

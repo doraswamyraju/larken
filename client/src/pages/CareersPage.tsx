@@ -121,27 +121,49 @@ export const CareersPage: React.FC = () => {
   return (
     <div className="bg-larken-lightBg">
       {/* Header Banner */}
-      <section className="bg-gradient-to-r from-larken-navy via-larken-navyDark to-[#071D3B] text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-r from-larken-navy via-larken-navyDark to-[#071D3B] text-white py-20 lg:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-larken-cyan text-xs font-semibold uppercase tracking-wider">
-            <Briefcase className="w-3.5 h-3.5" />
-            <span>Join Our Technology Network</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Careers & Technical Opportunities
-          </h1>
-          <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Collaborate on mission-critical corporate technology initiatives. We connect skilled software engineers, AI researchers, and cloud architects with premier enterprise projects.
-          </p>
-          <div className="pt-2">
-            <Button
-              onClick={() => handleOpenApplyModal()}
-              variant="primary"
-              size="lg"
-            >
-              Submit General Candidate Application
-            </Button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-larken-cyan text-xs font-semibold uppercase tracking-wider">
+                <Briefcase className="w-3.5 h-3.5" />
+                <span>Join Our Technology Network</span>
+              </div>
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                Careers & Technical Opportunities
+              </h1>
+              <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+                Collaborate on mission-critical corporate technology initiatives. We connect skilled software engineers, AI researchers, and cloud architects with premier enterprise projects.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-4 justify-center lg:justify-start">
+                <Button
+                  onClick={() => handleOpenApplyModal()}
+                  variant="primary"
+                  size="lg"
+                >
+                  Submit General Candidate Application
+                </Button>
+              </div>
+            </div>
+
+            {/* Generated High-Res Team Visual */}
+            <div className="lg:col-span-5">
+              <div className="rounded-3xl overflow-hidden shadow-2xl border border-white/20 img-zoom-container group relative">
+                <img
+                  src="/images/careers-team.jpg"
+                  alt="Larken Technologies Engineering Team"
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-xs text-white flex items-center justify-between">
+                  <span className="font-semibold text-larken-cyan">Engineering & AI Talent</span>
+                  <span className="text-slate-300">Overland Park, KS</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

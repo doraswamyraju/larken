@@ -70,7 +70,7 @@ export const ContactPage: React.FC = () => {
             <MapPin className="w-3.5 h-3.5" />
             <span>Overland Park, Kansas • Direct Corporate Line</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
             Contact Larken Technologies
           </h1>
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
@@ -87,7 +87,22 @@ export const ContactPage: React.FC = () => {
             
             {/* Left Column: Official Contact Card */}
             <div className="lg:col-span-5 space-y-8">
-              <div className="bg-white rounded-2xl p-8 border border-slate-200/90 shadow-soft space-y-6">
+              <div className="bg-white rounded-3xl p-8 border border-slate-200/90 shadow-soft space-y-6">
+                
+                {/* Official Corporate Office Visual */}
+                <div className="rounded-2xl overflow-hidden shadow-md border border-slate-200 img-zoom-container group relative">
+                  <img
+                    src="/images/contact-office.jpg"
+                    alt="Larken Technologies LLC Headquarters in Overland Park, KS"
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-3 left-3 right-3 text-xs text-white font-medium flex justify-between items-center">
+                    <span className="font-semibold text-larken-cyan">Overland Park, KS HQ</span>
+                    <span className="text-slate-300">10318 Conser St</span>
+                  </div>
+                </div>
+
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-larken-blue bg-blue-50 px-2.5 py-1 rounded">
                     Official Corporate Details
