@@ -10,9 +10,7 @@ import {
   Layers, 
   MessageSquare, 
   ArrowRight, 
-  Code, 
-  Users, 
-  Cpu, 
+  ChevronDown, 
   CheckCircle2, 
   AlertCircle 
 } from 'lucide-react';
@@ -89,84 +87,38 @@ export const ConsultationModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+      {/* Dark Blurred Backdrop */}
       <div 
-        className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-[#071325]/75 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
         onClick={closeEnquiryModal}
       ></div>
 
-      {/* Modal Dialog Card */}
-      <div className="relative w-full max-w-4xl bg-white rounded-[28px] shadow-2xl overflow-hidden border border-slate-200/90 z-10 animate-in zoom-in-95 fade-in duration-300">
+      {/* Modal Dialog Card - Exact Match to User Mockup */}
+      <div className="relative w-full max-w-[885px] bg-white rounded-3xl sm:rounded-[28px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden border border-slate-100 z-10 animate-in zoom-in-95 fade-in duration-300">
         
-        {/* Close Button */}
+        {/* Close Button (top-right of modal) */}
         <button
           onClick={closeEnquiryModal}
-          className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-all duration-200"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 z-30 p-1.5 text-slate-400 hover:text-slate-800 transition-colors rounded-full hover:bg-slate-100"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
+        <div className="flex flex-col lg:flex-row items-stretch min-h-[540px]">
           
-          {/* Left Column: Brand Graphic & Service Badges with Curved Wave */}
-          <div className="lg:col-span-5 bg-gradient-to-b from-[#071D3B] via-[#0B2D52] to-[#041328] text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
-            {/* Background Glows & Grid */}
-            <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-            <div className="absolute -top-16 -left-16 w-56 h-56 bg-larken-blue/30 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-larken-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div className="relative z-10 space-y-8">
-              {/* Logo */}
-              <div>
-                <img
-                  src="/logo-white.png"
-                  alt="Larken Technologies LLC"
-                  className="h-10 sm:h-11 w-auto object-contain"
-                />
-              </div>
-
-              {/* 3 Featured Service Badges (matching design) */}
-              <div className="space-y-3.5 pt-2">
-                <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md shadow-sm hover:bg-white/15 transition-all">
-                  <div className="w-9 h-9 rounded-xl bg-larken-blue/30 flex items-center justify-center text-larken-cyan border border-larken-cyan/30">
-                    <Code className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-bold tracking-wide text-white">
-                    IT Consulting
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md shadow-sm hover:bg-white/15 transition-all">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-500/30 flex items-center justify-center text-emerald-400 border border-emerald-400/30">
-                    <Users className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-bold tracking-wide text-white">
-                    IT Staffing
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md shadow-sm hover:bg-white/15 transition-all">
-                  <div className="w-9 h-9 rounded-xl bg-cyan-500/30 flex items-center justify-center text-larken-cyan border border-cyan-400/30">
-                    <Cpu className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-bold tracking-wide text-white">
-                    Technology Solutions
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Holographic Graphic Element */}
-            <div className="relative z-10 pt-8 mt-6 border-t border-white/10 flex items-center gap-3 text-xs text-slate-300">
-              <div className="w-2.5 h-2.5 rounded-full bg-larken-cyan animate-pulse"></div>
-              <span>Overland Park, KS • Direct US Consultation</span>
-            </div>
+          {/* Left Column: Authentic Brand Artwork with Flowing S-Curve Wave */}
+          <div className="w-full lg:w-[385px] lg:min-w-[385px] h-[240px] sm:h-[280px] lg:h-auto relative overflow-hidden bg-[#031838] flex-shrink-0">
+            <img
+              src="/images/popup-left-banner-retina.png"
+              alt="Larken Technologies - IT Consulting, IT Staffing, Technology Solutions"
+              className="w-full h-full object-cover object-left-top select-none pointer-events-none"
+            />
           </div>
 
-          {/* Right Column: Clean White Form */}
-          <div className="lg:col-span-7 p-8 sm:p-10 flex flex-col justify-center bg-white relative">
+          {/* Right Column: Clean White Form with Rounded Inputs */}
+          <div className="flex-1 p-6 sm:p-8 lg:p-9 flex flex-col justify-center bg-white relative">
             
             {submitted ? (
               <div className="py-8 text-center space-y-4">
@@ -175,13 +127,13 @@ export const ConsultationModal: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-larken-navy">Enquiry Dispatched!</h3>
                 <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                  Thank you for connecting with Larken Technologies LLC. A notification has been sent directly to our team at <strong>contracts@larkenit.com</strong>. We will review your requirements and reach out to you promptly.
+                  Thank you for reaching out to Larken Technologies LLC. A notification has been sent directly to <strong>contracts@larkenit.com</strong>. Our team will review your requirements and follow up with you promptly.
                 </p>
                 <div className="pt-4">
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="px-6 py-2.5 rounded-xl bg-larken-blue hover:bg-[#076bc0] text-white text-sm font-semibold shadow-md transition-all"
+                    className="px-6 py-2.5 rounded-xl bg-[#0052cc] hover:bg-[#0047b3] text-white text-sm font-semibold shadow-md transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -189,27 +141,29 @@ export const ConsultationModal: React.FC = () => {
               </div>
             ) : (
               <div>
-                <div className="mb-6 pr-8">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-larken-blue mb-1">
+                {/* Header Section */}
+                <div className="mb-5 pr-8">
+                  <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-[#087DDB] mb-1.5">
                     <span>LET'S CONNECT</span>
-                    <span className="w-8 h-[2px] bg-larken-blue/40 inline-block"></span>
+                    <span className="w-8 sm:w-10 h-[2px] bg-[#087DDB]/40 inline-block"></span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-larken-navy tracking-tight">
-                    Discuss Your Technology Needs
+                  <h3 className="text-2xl sm:text-[28px] font-extrabold text-[#0B1E38] tracking-tight leading-tight">
+                    Discuss Your <br className="hidden sm:inline" />
+                    Technology Needs
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-slate-500 mt-2 leading-relaxed">
                     Share your requirements and our team will get back to you shortly with the right solutions.
                   </p>
                 </div>
 
                 {errorMessage && (
-                  <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2">
+                  <div className="mb-3.5 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2">
                     <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-3.5">
                   {/* Row 1: Name and Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
@@ -223,7 +177,7 @@ export const ConsultationModal: React.FC = () => {
                           value={formData.fullName}
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                           placeholder="Full Name *"
-                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 bg-white"
+                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 focus:border-[#087DDB] focus:ring-2 focus:ring-[#087DDB]/15 outline-none transition-all placeholder:text-slate-400 bg-white text-slate-800"
                         />
                       </div>
                     </div>
@@ -239,7 +193,7 @@ export const ConsultationModal: React.FC = () => {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="Business Email *"
-                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 bg-white"
+                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 focus:border-[#087DDB] focus:ring-2 focus:ring-[#087DDB]/15 outline-none transition-all placeholder:text-slate-400 bg-white text-slate-800"
                         />
                       </div>
                     </div>
@@ -257,7 +211,7 @@ export const ConsultationModal: React.FC = () => {
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="Phone Number"
-                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 bg-white"
+                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 focus:border-[#087DDB] focus:ring-2 focus:ring-[#087DDB]/15 outline-none transition-all placeholder:text-slate-400 bg-white text-slate-800"
                         />
                       </div>
                     </div>
@@ -270,12 +224,15 @@ export const ConsultationModal: React.FC = () => {
                         <select
                           value={formData.serviceInterest}
                           onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value as ServiceInterest })}
-                          className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all bg-white text-slate-700"
+                          className="w-full text-xs sm:text-sm pl-10 pr-8 py-2.5 sm:py-3 rounded-xl border border-slate-200 focus:border-[#087DDB] focus:ring-2 focus:ring-[#087DDB]/15 outline-none transition-all bg-white text-slate-700 appearance-none cursor-pointer"
                         >
                           <option value="IT Consulting">IT Consulting</option>
                           <option value="IT Staffing">IT Staffing</option>
-                          <option value="General Enquiry">General Corporate Enquiry</option>
+                          <option value="General Enquiry">Technology Solutions</option>
                         </select>
+                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                          <ChevronDown className="w-4 h-4" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,7 +240,7 @@ export const ConsultationModal: React.FC = () => {
                   {/* Row 3: Message */}
                   <div>
                     <div className="relative">
-                      <div className="absolute top-3.5 left-3.5 pointer-events-none text-slate-400">
+                      <div className="absolute top-3 left-3.5 pointer-events-none text-slate-400">
                         <MessageSquare className="w-4 h-4" />
                       </div>
                       <textarea
@@ -291,20 +248,20 @@ export const ConsultationModal: React.FC = () => {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Your Message"
-                        className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 resize-none bg-white"
+                        className="w-full text-xs sm:text-sm pl-10 pr-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 focus:border-[#087DDB] focus:ring-2 focus:ring-[#087DDB]/15 outline-none transition-all placeholder:text-slate-400 resize-none bg-white text-slate-800"
                       ></textarea>
                     </div>
                   </div>
 
-                  {/* Submit Button */}
-                  <div className="pt-2">
+                  {/* Submit Button (Vibrant Royal Blue matching mockup) */}
+                  <div className="pt-1.5">
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full py-3.5 px-6 rounded-xl bg-larken-blue hover:bg-[#076bc0] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60"
+                      className="w-full py-3.5 px-6 rounded-xl bg-[#0052cc] hover:bg-[#0047b3] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
                     >
                       {isLoading ? (
-                        <span>Submitting...</span>
+                        <span>Sending...</span>
                       ) : (
                         <>
                           <span>Send Enquiry</span>
