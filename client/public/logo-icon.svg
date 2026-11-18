@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect width="48" height="48" rx="10" fill="#071D3B" />
+  <path d="M14 12V34C14 35.1 14.9 36 16 36H34C35.1 36 36 35.1 36 34V30C36 28.9 35.1 28 34 28H22V14C22 12.9 21.1 12 20 12H16C14.9 12 14 12.9 14 12Z" fill="url(#brandGrad)" />
+  <circle cx="34" cy="18" r="4" fill="#43C5FF" />
+  <path d="M26 18L32 18" stroke="#43C5FF" stroke-width="2" stroke-linecap="round" />
+  <defs>
+    <linearGradient id="brandGrad" x1="14" y1="12" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#087DDB" />
+      <stop offset="1" stop-color="#43C5FF" />
+    </linearGradient>
+  </defs>
+</svg>
