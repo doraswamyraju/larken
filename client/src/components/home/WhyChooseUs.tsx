@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionHeading } from '../common/SectionHeading';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { 
   ShieldCheck, 
   MapPin, 
@@ -10,6 +11,8 @@ import {
 } from 'lucide-react';
 
 export const WhyChooseUs: React.FC = () => {
+  const { elementRef, isVisible } = useScrollReveal();
+
   const points = [
     {
       title: 'US Registered & Centered',
@@ -44,28 +47,33 @@ export const WhyChooseUs: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-white relative overflow-hidden" ref={elementRef}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <SectionHeading
-          badge="Why Larken Technologies"
-          title="The Technology Partner High-Growth Businesses Rely On"
-          subtitle="We combine Midwestern reliability, modern architectural rigor, and deep staffing networks to help enterprises scale without compromise."
-        />
+        <div className={`reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+          <SectionHeading
+            badge="Why Larken Technologies"
+            title="The Technology Partner High-Growth Businesses Rely On"
+            subtitle="We combine Midwestern reliability, modern architectural rigor, and deep staffing networks to help enterprises scale without compromise."
+          />
+        </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {points.map((pt, idx) => (
             <div
               key={idx}
-              className="p-8 rounded-2xl bg-larken-lightBg/70 border border-slate-200/80 hover:border-larken-blue/40 transition-all duration-300 hover:shadow-soft"
+              className={`p-8 rounded-3xl bg-larken-lightBg/80 border border-slate-200/80 hover-glow transition-all duration-300 group reveal-on-scroll ${
+                isVisible ? 'is-visible' : ''
+              }`}
+              style={{ transitionDelay: `${idx * 80}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-white shadow-soft border border-slate-200/80 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
                 {pt.icon}
               </div>
-              <h3 className="text-lg font-bold text-larken-navy">
+              <h3 className="text-xl font-bold text-larken-navy group-hover:text-larken-blue transition-colors">
                 {pt.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-3 text-sm text-slate-600 leading-relaxed">
                 {pt.desc}
               </p>
             </div>

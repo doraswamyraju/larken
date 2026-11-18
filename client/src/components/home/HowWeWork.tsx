@@ -1,8 +1,11 @@
 import React from 'react';
 import { SectionHeading } from '../common/SectionHeading';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { Search, Compass, Rocket, Repeat } from 'lucide-react';
 
 export const HowWeWork: React.FC = () => {
+  const { elementRef, isVisible } = useScrollReveal();
+
   const steps = [
     {
       number: '01',
@@ -31,30 +34,38 @@ export const HowWeWork: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-larken-lightBg border-t border-slate-200/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-gradient-to-b from-white to-larken-lightBg border-t border-slate-200/60 relative overflow-hidden" ref={elementRef}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <SectionHeading
-          badge="Execution Model"
-          title="How We Work With You"
-          subtitle="A structured, transparent delivery methodology designed to eliminate risk and accelerate time-to-value."
-        />
+        <div className={`reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+          <SectionHeading
+            badge="Execution Model"
+            title="How We Work With You"
+            subtitle="A structured, transparent delivery methodology designed to eliminate risk and accelerate time-to-value."
+          />
+        </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           {steps.map((st, i) => (
-            <div key={i} className="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-soft">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-3xl font-extrabold text-slate-200 font-mono">
+            <div 
+              key={i} 
+              className={`relative bg-white rounded-3xl p-7 border border-slate-200 shadow-soft hover-glow group transition-all duration-300 reveal-on-scroll ${
+                isVisible ? 'is-visible' : ''
+              }`}
+              style={{ transitionDelay: `${i * 100}ms` }}
+            >
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-4xl font-black text-slate-200 font-mono group-hover:text-larken-blue/30 transition-colors">
                   {st.number}
                 </span>
-                <div className="p-2 rounded-lg bg-blue-50 border border-blue-100">
+                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 group-hover:bg-larken-blue group-hover:text-white transition-all duration-300">
                   {st.icon}
                 </div>
               </div>
-              <h3 className="text-base font-bold text-larken-navy">
+              <h3 className="text-lg font-bold text-larken-navy group-hover:text-larken-blue transition-colors">
                 {st.title}
               </h3>
-              <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+              <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {st.desc}
               </p>
             </div>

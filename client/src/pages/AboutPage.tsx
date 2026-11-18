@@ -2,6 +2,7 @@ import React from 'react';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
 import { COMPANY_INFO } from '../constants/company';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { 
   ShieldCheck, 
   MapPin, 
@@ -12,10 +13,12 @@ import {
 } from 'lucide-react';
 
 export const AboutPage: React.FC = () => {
+  const { elementRef, isVisible } = useScrollReveal();
+
   return (
     <div className="bg-larken-lightBg">
       {/* Page Header */}
-      <section className="bg-larken-navy text-white py-20 relative overflow-hidden">
+      <section className="bg-larken-navy text-white py-20 lg:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-larken-cyan text-xs font-semibold uppercase tracking-wider">
@@ -31,16 +34,16 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Corporate Overview */}
-      <section className="py-20 bg-white">
+      {/* Corporate Overview & Visual Showcase */}
+      <section className="py-24 bg-white" ref={elementRef}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-7 space-y-6">
+            <div className={`lg:col-span-7 space-y-6 reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
               <span className="text-xs font-bold uppercase tracking-wider text-larken-blue bg-blue-50 px-3 py-1 rounded-md">
                 Our Corporate Identity
               </span>
-              <h2 className="text-3xl font-extrabold text-larken-navy leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-larken-navy leading-tight">
                 A Principled Technology Consulting & Staffing Partner
               </h2>
               <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
@@ -50,66 +53,57 @@ export const AboutPage: React.FC = () => {
                 In an era dominated by rapid breakthroughs in Generative AI, cloud-native modernization, and complex distributed data ecosystems, businesses require more than generic advice—they require concrete technical execution and proven professionals who can integrate seamlessly into their delivery cadence.
               </p>
 
-              <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-larken-lightBg border border-slate-200">
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-larken-lightBg border border-slate-200/80 hover-glow transition-all duration-300">
                   <div className="font-bold text-larken-navy text-sm flex items-center gap-2">
-                    <Building className="w-4 h-4 text-larken-blue" />
+                    <Building className="w-5 h-5 text-larken-blue" />
                     US-Based Operations
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
                     Direct accountability, clear communication, and alignment with Central and nationwide US time zones.
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-larken-lightBg border border-slate-200">
+                <div className="p-5 rounded-2xl bg-larken-lightBg border border-slate-200/80 hover-glow transition-all duration-300">
                   <div className="font-bold text-larken-navy text-sm flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-larken-blue" />
+                    <ShieldCheck className="w-5 h-5 text-larken-blue" />
                     Principled Transparency
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
                     No inflated claims. Honest technical assessments, verified candidate capabilities, and clear SLAs.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-5 bg-gradient-to-br from-larken-navy to-larken-navyDark text-white p-8 sm:p-10 rounded-2xl shadow-card space-y-6 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-larken-cyan/10 rounded-full blur-2xl pointer-events-none"></div>
-
-              <h3 className="text-xl font-bold text-white border-b border-white/10 pb-4">
-                Company Details
-              </h3>
-
-              <div className="space-y-4 text-xs sm:text-sm">
-                <div>
-                  <span className="text-slate-400 block">Legal Entity Name</span>
-                  <span className="font-semibold text-white">{COMPANY_INFO.legalName}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Registered Location</span>
-                  <span className="font-semibold text-white">{COMPANY_INFO.fullAddress}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Official Website</span>
-                  <span className="font-semibold text-larken-cyan">{COMPANY_INFO.website}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Corporate Contact</span>
-                  <span className="font-semibold text-white">{COMPANY_INFO.email}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Telephone</span>
-                  <span className="font-semibold text-white">{COMPANY_INFO.phone}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block">Primary Business Lines</span>
-                  <span className="font-semibold text-white">IT Consulting & IT Staffing</span>
+            {/* Visual Boardroom Image */}
+            <div className={`lg:col-span-5 reveal-on-scroll ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+              <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 img-zoom-container group relative">
+                <img
+                  src="/images/about-culture.jpg"
+                  alt="Larken Technologies Engineering and Architecture Roadmap"
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-xs text-white flex items-center justify-between">
+                  <span className="font-semibold text-larken-cyan">Technical Architecture Boardroom</span>
+                  <span className="text-slate-300">Larken Technologies LLC</span>
                 </div>
               </div>
 
-              <div className="pt-2">
-                <Button to="/contact" variant="primary" size="md" className="w-full">
-                  Connect With Us
-                </Button>
+              {/* Quick Details Card */}
+              <div className="mt-6 bg-gradient-to-br from-larken-navy to-larken-navyDark text-white p-6 rounded-2xl shadow-card space-y-3 text-xs">
+                <div className="flex justify-between border-b border-white/10 pb-2">
+                  <span className="text-slate-400">Headquarters</span>
+                  <span className="font-semibold">{COMPANY_INFO.address.city}, {COMPANY_INFO.address.stateCode}, USA</span>
+                </div>
+                <div className="flex justify-between border-b border-white/10 pb-2">
+                  <span className="text-slate-400">Official Contact</span>
+                  <span className="font-semibold text-larken-cyan">{COMPANY_INFO.email}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Direct Line</span>
+                  <span className="font-semibold">{COMPANY_INFO.phone}</span>
+                </div>
               </div>
             </div>
 
@@ -118,13 +112,13 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-larken-lightBg border-t border-slate-200/60">
+      <section className="py-24 bg-larken-lightBg border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-soft space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-larken-blue flex items-center justify-center">
-                <Target className="w-6 h-6" />
+            <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-soft hover-glow space-y-4 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-50 text-larken-blue flex items-center justify-center shadow-sm">
+                <Target className="w-7 h-7" />
               </div>
               <h3 className="text-2xl font-bold text-larken-navy">
                 Our Mission
@@ -134,9 +128,9 @@ export const AboutPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-soft space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                <Eye className="w-6 h-6" />
+            <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-soft hover-glow space-y-4 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-sm">
+                <Eye className="w-7 h-7" />
               </div>
               <h3 className="text-2xl font-bold text-larken-navy">
                 Our Vision
@@ -151,7 +145,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* Operating Principles */}
-      <section className="py-20 bg-white border-t border-slate-200/60">
+      <section className="py-24 bg-white border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <SectionHeading
@@ -161,22 +155,22 @@ export const AboutPage: React.FC = () => {
           />
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-xl bg-larken-lightBg border border-slate-200 space-y-3">
-              <div className="text-larken-blue font-bold text-lg">01. Architectural Precision</div>
+            <div className="p-8 rounded-3xl bg-larken-lightBg border border-slate-200 hover-glow space-y-3 transition-all duration-300">
+              <div className="text-larken-blue font-extrabold text-xl">01. Architectural Precision</div>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 We believe in scalable designs from day one. Whether advising on cloud infrastructure or building data pipelines, we prioritize security, maintainability, and clean architecture.
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-larken-lightBg border border-slate-200 space-y-3">
-              <div className="text-larken-blue font-bold text-lg">02. Rigorous Talent Standards</div>
+            <div className="p-8 rounded-3xl bg-larken-lightBg border border-slate-200 hover-glow space-y-3 transition-all duration-300">
+              <div className="text-larken-blue font-extrabold text-xl">02. Rigorous Talent Standards</div>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 We do not keyword-match resumes. Our staffing candidate evaluations include technical vetting and practical problem-solving to ensure real-world competency.
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-larken-lightBg border border-slate-200 space-y-3">
-              <div className="text-larken-blue font-bold text-lg">03. Client-Centric Alignment</div>
+            <div className="p-8 rounded-3xl bg-larken-lightBg border border-slate-200 hover-glow space-y-3 transition-all duration-300">
+              <div className="text-larken-blue font-extrabold text-xl">03. Client-Centric Alignment</div>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Your goals are our benchmarks. We customize our consulting engagements and staffing terms to match your sprint rhythms, budget cycles, and strategic targets.
               </p>
