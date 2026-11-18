@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Logo } from '../common/Logo';
 import { Button } from '../common/Button';
+import { ConsultingBrandIcon, StaffingBrandIcon } from '../common/BrandIcons';
 import { COMPANY_INFO } from '../../constants/company';
 import { 
   Phone, 
@@ -10,9 +11,7 @@ import {
   ChevronDown, 
   Menu, 
   X, 
-  ArrowRight,
-  Cpu,
-  Users
+  ArrowRight
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -36,13 +35,14 @@ export const Header: React.FC = () => {
     setIsServicesOpen(false);
   }, [location.pathname]);
 
+  const isServicesActive = location.pathname.startsWith('/services');
+
+  // Modern pill menu item with tactile hover and active states
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `text-sm font-medium transition-colors duration-200 ${
-      isScrolled ? 'py-1.5' : 'py-2'
-    } ${
+    `relative text-xs sm:text-sm font-semibold transition-all duration-200 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 select-none ${
       isActive 
-        ? 'text-larken-blue font-semibold' 
-        : 'text-larken-navy hover:text-larken-blue'
+        ? 'text-larken-blue bg-blue-50/90 shadow-sm border border-blue-200/70' 
+        : 'text-slate-600 hover:text-larken-navy hover:bg-slate-100/90'
     }`;
 
   return (
@@ -103,7 +103,7 @@ export const Header: React.FC = () => {
           <Logo compact={isScrolled} />
 
           {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-2">
             <NavLink to="/" className={navLinkClasses} end>
               Home
             </NavLink>
@@ -118,31 +118,29 @@ export const Header: React.FC = () => {
               onMouseLeave={() => setIsServicesOpen(false)}
             >
               <button 
-                className={`flex items-center gap-1 text-sm font-medium transition-colors duration-200 ${
-                  isScrolled ? 'py-1.5' : 'py-2'
-                } ${
-                  location.pathname.startsWith('/services') 
-                    ? 'text-larken-blue font-semibold' 
-                    : 'text-larken-navy hover:text-larken-blue'
+                className={`relative text-xs sm:text-sm font-semibold transition-all duration-200 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 select-none ${
+                  isServicesActive
+                    ? 'text-larken-blue bg-blue-50/90 shadow-sm border border-blue-200/70'
+                    : 'text-slate-600 hover:text-larken-navy hover:bg-slate-100/90'
                 }`}
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
               >
                 <span>Services</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isServicesOpen ? 'rotate-180 text-larken-blue' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
               {isServicesOpen && (
-                <div className="absolute top-full left-0 w-72 bg-white rounded-2xl shadow-dropdown border border-slate-100 p-2 mt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute top-full left-0 w-80 bg-white rounded-2xl shadow-dropdown border border-slate-100 p-2 mt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <Link 
                     to="/services/it-consulting" 
-                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-larken-lightBg transition-colors group/item"
+                    className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-blue-50/60 transition-colors group/item"
                   >
-                    <div className="p-2 rounded-lg bg-blue-50 text-larken-blue group-hover/item:bg-larken-blue group-hover/item:text-white transition-colors">
-                      <Cpu className="w-5 h-5" />
+                    <div className="p-2.5 rounded-xl bg-blue-50 text-larken-blue group-hover/item:bg-larken-blue group-hover/item:text-white transition-colors">
+                      <ConsultingBrandIcon className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-larken-navy group-hover/item:text-larken-blue">
+                      <div className="text-sm font-bold text-larken-navy group-hover/item:text-larken-blue">
                         IT Consulting
                       </div>
                       <div className="text-xs text-slate-500 mt-0.5">
@@ -153,13 +151,13 @@ export const Header: React.FC = () => {
 
                   <Link 
                     to="/services/it-staffing" 
-                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-larken-lightBg transition-colors group/item"
+                    className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-emerald-50/60 transition-colors group/item"
                   >
-                    <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
-                      <Users className="w-5 h-5" />
+                    <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
+                      <StaffingBrandIcon className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-larken-navy group-hover/item:text-emerald-600">
+                      <div className="text-sm font-bold text-larken-navy group-hover/item:text-emerald-600">
                         IT Staffing
                       </div>
                       <div className="text-xs text-slate-500 mt-0.5">

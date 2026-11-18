@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { ScrollToTop } from '../common/ScrollToTop';
 
 export const Layout: React.FC = () => {
   const { pathname } = useLocation();
@@ -17,6 +18,7 @@ export const Layout: React.FC = () => {
         <Outlet />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

@@ -2,29 +2,28 @@ import React from 'react';
 import { Button } from '../common/Button';
 import { HeroEnquiryForm } from './HeroEnquiryForm';
 import { COMPANY_INFO } from '../../constants/company';
+import { ConsultingBrandIcon, StaffingBrandIcon } from '../common/BrandIcons';
 import { 
   ArrowRight, 
   CheckCircle2, 
   MapPin, 
   ShieldCheck, 
-  TrendingUp,
-  Cpu,
-  Users
+  TrendingUp
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Hero: React.FC = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-larken-navy via-larken-navyDark to-[#071D3B] text-white py-16 lg:py-24">
-      {/* High-Tech Background Image Overlay with Cinematic Blending */}
+      {/* High-Tech Background Image Overlay with Rich Visibility */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img
           src="/images/hero-tech.jpg"
-          alt=""
-          className="w-full h-full object-cover object-center opacity-20 mix-blend-luminosity scale-105"
+          alt="Larken Technologies Enterprise Technology Team"
+          className="w-full h-full object-cover object-center opacity-45 scale-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-larken-navy via-larken-navy/90 to-larken-navyDark/95"></div>
-        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071D3B]/92 via-[#071D3B]/80 to-[#071D3B]/65"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-15"></div>
       </div>
 
       {/* Decorative Radial Glows */}
@@ -78,14 +77,14 @@ export const Hero: React.FC = () => {
               </Button>
             </div>
 
-            {/* Core Capability Pillars Overview with Interactive Hover Effects */}
+            {/* Core Capability Pillars with Authentic Brand Icons */}
             <div className="pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link 
                 to="/services/it-consulting" 
-                className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-larken-cyan/50 hover:scale-[1.02] transition-all duration-300 group"
+                className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/15 backdrop-blur-md hover:bg-white/10 hover:border-larken-cyan/50 hover:scale-[1.02] transition-all duration-300 group shadow-sm"
               >
                 <div className="p-2.5 rounded-xl bg-larken-blue/20 text-larken-cyan group-hover:bg-larken-blue group-hover:text-white transition-colors duration-300">
-                  <Cpu className="w-5 h-5" />
+                  <ConsultingBrandIcon className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white group-hover:text-larken-cyan transition-colors">
@@ -99,10 +98,10 @@ export const Hero: React.FC = () => {
 
               <Link 
                 to="/services/it-staffing" 
-                className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-emerald-400/50 hover:scale-[1.02] transition-all duration-300 group"
+                className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/15 backdrop-blur-md hover:bg-white/10 hover:border-emerald-400/50 hover:scale-[1.02] transition-all duration-300 group shadow-sm"
               >
                 <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-                  <Users className="w-5 h-5" />
+                  <StaffingBrandIcon className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
