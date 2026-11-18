@@ -6,6 +6,7 @@ interface LogoProps {
   className?: string;
   showTagline?: boolean;
   markOnly?: boolean;
+  compact?: boolean;
 }
 
 export const Logo: React.FC<LogoProps> = ({
@@ -13,6 +14,7 @@ export const Logo: React.FC<LogoProps> = ({
   className = '',
   showTagline = false,
   markOnly = false,
+  compact = false,
 }) => {
   const isLight = variant === 'light';
   const logoSrc = markOnly
@@ -26,8 +28,12 @@ export const Logo: React.FC<LogoProps> = ({
       <img
         src={logoSrc}
         alt="Larken Technologies LLC"
-        className={`w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02] ${
-          markOnly ? 'h-10 w-10' : 'h-9 sm:h-11 max-w-[220px] sm:max-w-[260px]'
+        className={`w-auto object-contain transition-all duration-300 group-hover:scale-[1.02] ${
+          markOnly 
+            ? 'h-9 w-9' 
+            : compact
+            ? 'h-8 sm:h-8.5 max-w-[170px] sm:max-w-[200px]'
+            : 'h-9 sm:h-11 max-w-[220px] sm:max-w-[260px]'
         }`}
       />
       {showTagline && !markOnly && (

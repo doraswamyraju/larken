@@ -23,9 +23,10 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // Trigger floating compact state once scrolled past 25px
+      setIsScrolled(window.scrollY > 25);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -36,17 +37,25 @@ export const Header: React.FC = () => {
   }, [location.pathname]);
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `text-sm font-medium transition-colors duration-200 py-2 ${
+    `text-sm font-medium transition-colors duration-200 ${
+      isScrolled ? 'py-1.5' : 'py-2'
+    } ${
       isActive 
         ? 'text-larken-blue font-semibold' 
         : 'text-larken-navy hover:text-larken-blue'
     }`;
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-all duration-300">
-      {/* Top Utility Bar with Verified Contact Information */}
-      <div className="bg-larken-navy text-xs text-slate-300 border-b border-white/10 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+    <header className="sticky top-0 z-50 w-full transition-all duration-300 pointer-events-auto">
+      {/* 1. Top Utility Row: verified contact info - Hides smoothly on scroll */}
+      <div 
+        className={`bg-larken-navy text-xs text-slate-300 hidden md:block overflow-hidden transition-all duration-300 ease-in-out ${
+          isScrolled 
+            ? 'max-h-0 opacity-0 -translate-y-full py-0 border-none' 
+            : 'max-h-12 opacity-100 py-2 border-b border-white/10'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center space-x-6">
             <span className="flex items-center gap-1.5 text-slate-300">
               <MapPin className="w-3.5 h-3.5 text-larken-cyan" />
@@ -75,17 +84,23 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
+      {/* 2. Next Row: Becomes a floating, compact navbar with curved sides on scroll */}
       <div 
-        className={`bg-white transition-all duration-300 ${
+        className={`transition-all duration-300 ${
           isScrolled 
-            ? 'shadow-md border-b border-slate-200/80 py-3' 
-            : 'border-b border-slate-100 py-4'
+            ? 'px-4 sm:px-6 lg:px-8 pt-2.5 sm:pt-3' 
+            : 'w-full bg-white border-b border-slate-100'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo */}
-          <Logo />
+        <div 
+          className={`transition-all duration-300 flex items-center justify-between ${
+            isScrolled
+              ? 'max-w-6xl mx-auto px-4 sm:px-6 py-2 rounded-full bg-white/95 backdrop-blur-md shadow-card border border-slate-200/90'
+              : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5'
+          }`}
+        >
+          {/* Logo with dynamic compact size */}
+          <Logo compact={isScrolled} />
 
           {/* Desktop Nav Items */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -103,7 +118,9 @@ export const Header: React.FC = () => {
               onMouseLeave={() => setIsServicesOpen(false)}
             >
               <button 
-                className={`flex items-center gap-1 text-sm font-medium py-2 transition-colors duration-200 ${
+                className={`flex items-center gap-1 text-sm font-medium transition-colors duration-200 ${
+                  isScrolled ? 'py-1.5' : 'py-2'
+                } ${
                   location.pathname.startsWith('/services') 
                     ? 'text-larken-blue font-semibold' 
                     : 'text-larken-navy hover:text-larken-blue'
@@ -116,12 +133,12 @@ export const Header: React.FC = () => {
 
               {/* Dropdown Menu */}
               {isServicesOpen && (
-                <div className="absolute top-full left-0 w-72 bg-white rounded-xl shadow-dropdown border border-slate-100 p-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute top-full left-0 w-72 bg-white rounded-2xl shadow-dropdown border border-slate-100 p-2 mt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <Link 
                     to="/services/it-consulting" 
-                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-larken-lightBg transition-colors group/item"
+                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-larken-lightBg transition-colors group/item"
                   >
-                    <div className="p-2 rounded-md bg-blue-50 text-larken-blue group-hover/item:bg-larken-blue group-hover/item:text-white transition-colors">
+                    <div className="p-2 rounded-lg bg-blue-50 text-larken-blue group-hover/item:bg-larken-blue group-hover/item:text-white transition-colors">
                       <Cpu className="w-5 h-5" />
                     </div>
                     <div>
@@ -129,16 +146,16 @@ export const Header: React.FC = () => {
                         IT Consulting
                       </div>
                       <div className="text-xs text-slate-500 mt-0.5">
-                        AI, Cloud, Custom Software & Enterprise Architecture
+                        AI, Cloud, Custom Software & Architecture
                       </div>
                     </div>
                   </Link>
 
                   <Link 
                     to="/services/it-staffing" 
-                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-larken-lightBg transition-colors group/item"
+                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-larken-lightBg transition-colors group/item"
                   >
-                    <div className="p-2 rounded-md bg-emerald-50 text-emerald-600 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
+                    <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
                       <Users className="w-5 h-5" />
                     </div>
                     <div>
@@ -146,7 +163,7 @@ export const Header: React.FC = () => {
                         IT Staffing
                       </div>
                       <div className="text-xs text-slate-500 mt-0.5">
-                        Specialized tech talent, AI/ML, Cloud & DevOps engineers
+                        Specialized engineers & dedicated squads
                       </div>
                     </div>
                   </Link>
@@ -164,7 +181,13 @@ export const Header: React.FC = () => {
 
           {/* Action Button: Let's Talk CTA */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button to="/contact" variant="primary" size="md" rightIcon={<ArrowRight className="w-4 h-4" />}>
+            <Button 
+              to="/contact" 
+              variant="primary" 
+              size={isScrolled ? 'sm' : 'md'} 
+              className={isScrolled ? 'rounded-full px-5 py-2 text-xs shadow-sm' : 'rounded-lg'}
+              rightIcon={<ArrowRight className={isScrolled ? 'w-3.5 h-3.5' : 'w-4 h-4'} />}
+            >
               Let's Talk
             </Button>
           </div>
@@ -173,11 +196,11 @@ export const Header: React.FC = () => {
           <div className="lg:hidden flex items-center">
             <button
               type="button"
-              className="p-2 rounded-lg text-larken-navy hover:text-larken-blue hover:bg-slate-100 focus:outline-none"
+              className="p-1.5 rounded-lg text-larken-navy hover:text-larken-blue hover:bg-slate-100 focus:outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle Navigation"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -185,68 +208,74 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-xl">
+        <div 
+          className={`lg:hidden bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl border border-slate-200/90 transition-all ${
+            isScrolled 
+              ? 'max-w-xl mx-4 sm:mx-auto mt-2 rounded-2xl' 
+              : 'border-b'
+          }`}
+        >
           <div className="space-y-1">
             <Link 
               to="/" 
-              className="block px-3 py-2.5 rounded-md text-base font-semibold text-larken-navy hover:bg-slate-50"
+              className="block px-3 py-2 rounded-lg text-base font-semibold text-larken-navy hover:bg-slate-50"
             >
               Home
             </Link>
             <Link 
               to="/about" 
-              className="block px-3 py-2.5 rounded-md text-base font-semibold text-larken-navy hover:bg-slate-50"
+              className="block px-3 py-2 rounded-lg text-base font-semibold text-larken-navy hover:bg-slate-50"
             >
               About Us
             </Link>
-            <div className="px-3 py-2 font-bold text-xs uppercase tracking-wider text-slate-400">
+            <div className="px-3 py-1 font-bold text-xs uppercase tracking-wider text-slate-400">
               Services
             </div>
             <Link 
               to="/services/it-consulting" 
-              className="block pl-6 pr-3 py-2 rounded-md text-sm font-medium text-larken-navy hover:bg-slate-50 flex items-center justify-between"
+              className="block pl-6 pr-3 py-2 rounded-lg text-sm font-medium text-larken-navy hover:bg-slate-50 flex items-center justify-between"
             >
               <span>IT Consulting</span>
-              <span className="text-xs text-larken-blue">AI & Cloud</span>
+              <span className="text-xs text-larken-blue font-semibold">AI & Cloud</span>
             </Link>
             <Link 
               to="/services/it-staffing" 
-              className="block pl-6 pr-3 py-2 rounded-md text-sm font-medium text-larken-navy hover:bg-slate-50 flex items-center justify-between"
+              className="block pl-6 pr-3 py-2 rounded-lg text-sm font-medium text-larken-navy hover:bg-slate-50 flex items-center justify-between"
             >
               <span>IT Staffing</span>
-              <span className="text-xs text-emerald-600">Tech Talent</span>
+              <span className="text-xs text-emerald-600 font-semibold">Tech Talent</span>
             </Link>
             <Link 
               to="/careers" 
-              className="block px-3 py-2.5 rounded-md text-base font-semibold text-larken-navy hover:bg-slate-50"
+              className="block px-3 py-2 rounded-lg text-base font-semibold text-larken-navy hover:bg-slate-50"
             >
               Careers
             </Link>
             <Link 
               to="/contact" 
-              className="block px-3 py-2.5 rounded-md text-base font-semibold text-larken-navy hover:bg-slate-50"
+              className="block px-3 py-2 rounded-lg text-base font-semibold text-larken-navy hover:bg-slate-50"
             >
               Contact Us
             </Link>
           </div>
 
-          <div className="pt-4 border-t border-slate-100 space-y-3">
+          <div className="pt-3 border-t border-slate-100 space-y-2.5">
             <a 
               href={`tel:${COMPANY_INFO.phoneClean}`} 
-              className="flex items-center gap-2 text-sm font-medium text-larken-navy px-3 py-1"
+              className="flex items-center gap-2 text-xs font-semibold text-larken-navy px-3 py-1"
             >
-              <Phone className="w-4 h-4 text-larken-blue" />
+              <Phone className="w-3.5 h-3.5 text-larken-blue" />
               <span>{COMPANY_INFO.phone}</span>
             </a>
             <a 
               href={`mailto:${COMPANY_INFO.email}`} 
-              className="flex items-center gap-2 text-sm font-medium text-larken-navy px-3 py-1"
+              className="flex items-center gap-2 text-xs font-semibold text-larken-navy px-3 py-1"
             >
-              <Mail className="w-4 h-4 text-larken-blue" />
+              <Mail className="w-3.5 h-3.5 text-larken-blue" />
               <span>{COMPANY_INFO.email}</span>
             </a>
-            <div className="pt-2">
-              <Button to="/contact" variant="primary" size="md" className="w-full">
+            <div className="pt-1">
+              <Button to="/contact" variant="primary" size="sm" className="w-full rounded-full">
                 Let's Talk
               </Button>
             </div>
