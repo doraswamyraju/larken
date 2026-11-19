@@ -102,7 +102,9 @@ export const emailService = {
         configured: true,
         healthy: false,
         message: `SMTP connection error: ${err.message}`,
-        accountAttempted: process.env.SMTP_USER,
+        accountAttempted: user,
+        passAttemptedLength: pass.length,
+        passAttemptedMasked: pass.length > 6 ? pass.slice(0, 3) + '••••••••••' + pass.slice(-3) : 'too_short',
         hint: 'Verify that SMTP_USER matches the exact Google account email for this app password, and run pm2 restart larken --update-env.',
       };
     }
