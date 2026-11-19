@@ -300,10 +300,10 @@ Corporate Headquarters: 10318 Conser St, Ste 1J, Overland Park, KS 66212
           html: htmlContent,
         });
 
-        console.log(`✅ [EMAIL DISPATCHED] Lead successfully sent to ${receiver} (MessageId: ${info.messageId})`);
+        console.log(`✅ [EMAIL DISPATCHED] Lead successfully sent to ${receiver} (Sender: ${sender}, MessageId: ${info.messageId})`);
         return { success: true, messageId: info.messageId };
       } catch (err) {
-        console.error(`❌ [EMAIL DISPATCH FAILED] Error delivering to ${receiver}:`, err.message);
+        console.error(`❌ [EMAIL DISPATCH FAILED] Error delivering to ${receiver} (Sender: ${sender}):`, err.message);
         return { success: false, error: err.message };
       }
     } else {

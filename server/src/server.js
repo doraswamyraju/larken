@@ -27,6 +27,9 @@ if (fs.existsSync(serverEnvPath)) {
 const app = express();
 const PORT = process.env.PORT || 5092;
 
+// Trust reverse proxy (Nginx) for rate-limiting and client IP forwarding
+app.set('trust proxy', 1);
+
 // Security Middleware
 app.use(helmet({
   contentSecurityPolicy: false, // Allows flexible CDN & embed resources
