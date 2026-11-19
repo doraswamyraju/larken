@@ -165,27 +165,73 @@ Whenever changes are made:
 
 ---
 
-## 4. Switching to Production Domain (`larkenit.com`)
+## 4. Hosting at Production Domain (`larkenit.com`) & Protecting ZenBusiness Email
 
-When client approval is received to switch from `larken.sriddha.com` to `larkenit.com`:
-1. **Update DNS Records**:
-   Point `larkenit.com` and `www.larkenit.com` `A` records to `147.93.107.21`.
-2. **Deploy Nginx Config**:
-   ```bash
-   sudo cp /var/www/larken/deploy/nginx/larkenit.com.conf /etc/nginx/sites-available/larkenit.com.conf
-   sudo ln -s /etc/nginx/sites-available/larkenit.com.conf /etc/nginx/sites-enabled/
-   sudo nginx -t
-   sudo systemctl reload nginx
-   ```
-3. **Issue SSL Certificate**:
-   ```bash
-   sudo certbot --nginx -d larkenit.com -d www.larkenit.com
-   ```
-4. **Remove Staging Config (Optional)**:
-   ```bash
-   sudo rm /etc/nginx/sites-enabled/larken.sriddha.com.conf
-   sudo nginx -t && sudo systemctl reload nginx
-   ```
+### ⚠️ Critical Email Safety Rule (Protecting Customer's ZenBusiness Mail)
+The customer already has an active mailbox at **`contracts@larkenit.com`** hosted on ZenBusiness (`hostedemail.com`).
+When updating DNS in ZenBusiness:
+- **ONLY update the website records (`A` record and `www` CNAME/A record).**
+- **DO NOT TOUCH OR DELETE ANY OF THE FOLLOWING MAIL RECORDS:**
+  - `MX`: `mx.larkenit.com.cust.b.hostedemail.com` (Priority 10) $\rightarrow$ **DO NOT TOUCH**
+  - `TXT` (SPF): `v=spf1 include:_spf.hostedemail.com ~all` $\rightarrow$ **DO NOT TOUCH**
+  - `TXT` (DKIM): `dkim1._domainkey` $\rightarrow$ **DO NOT TOUCH**
+
+Because `MX` records handle all incoming emails, changing only the `A` record points website traffic to the VPS while leaving the customer's mailbox on ZenBusiness 100% uninterrupted.
+
+---
+
+### Step-by-Step Domain Switch in ZenBusiness
+1. Log in to **ZenBusiness Dashboard > Domains > `larkenit.com` > DNS Records**.
+2. **Edit `A` Record**:
+   - Change Record Data from `35.172.94.1` $\rightarrow$ **`147.93.107.21`** (Hostinger VPS IP).
+3. **Edit `CNAME` for `www`**:
+   - Change from `s.multiscreensite.com` $\rightarrow$ `larkenit.com` (or point an `A` record for `www` to `147.93.107.21`).
+4. Save DNS changes.
+
+---
+
+### Step-by-Step Nginx & SSL Setup on VPS
+On the Hostinger VPS:
+```bash
+# 1. Enable production virtual host for larkenit.com
+sudo cp /var/www/larken/deploy/nginx/larkenit.com.conf /etc/nginx/sites-available/larkenit.com.conf
+sudo ln -s /etc/nginx/sites-available/larkenit.com.conf /etc/nginx/sites-enabled/
+
+# 2. Test syntax to protect all other VPS sites!
+sudo nginx -t
+
+# 3. Reload Nginx
+sudo systemctl reload nginx
+
+# 4. Issue Free SSL Certificate for larkenit.com & www.larkenit.com
+sudo certbot --nginx -d larkenit.com -d www.larkenit.com
+```
+
+---
+
+### Contact Form Email Dispatch Configuration
+To deliver contact form submissions to `contracts@larkenit.com` without disturbing the customer's ZenBusiness setup, choose one of these options in `/var/www/larken/server/.env`:
+
+- **Option 1: Using ZenBusiness SMTP (if customer provides their mailbox password)**
+  ```env
+  SMTP_HOST=mail.b.hostedemail.com
+  SMTP_PORT=465
+  SMTP_SECURE=true
+  SMTP_USER=contracts@larkenit.com
+  SMTP_PASS=customer_zenbusiness_email_password
+  NOTIFICATION_RECEIVER=contracts@larkenit.com
+  ```
+
+- **Option 2: Using an Independent Mailer / Hostinger VPS SMTP (Zero password needed from customer)**
+  You can use any external SMTP or Hostinger VPS mailbox to send notification emails *to* `contracts@larkenit.com`. The customer's ZenBusiness inbox receives the leads with full details and direct 1-click reply to the prospect.
+  ```env
+  SMTP_HOST=smtp.hostinger.com
+  SMTP_PORT=465
+  SMTP_SECURE=true
+  SMTP_USER=your_sending_account
+  SMTP_PASS=your_sending_password
+  NOTIFICATION_RECEIVER=contracts@larkenit.com
+  ```
 
 ---
 
