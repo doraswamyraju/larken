@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { initDatabase } from './config/db.js';
@@ -13,10 +14,15 @@ import jobsRoutes from './routes/jobsRoutes.js';
 import applicationsRoutes from './routes/applicationsRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
-dotenv.config();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+dotenv.config(); // Load from CWD
+// Also load from server/.env if present
+const serverEnvPath = path.resolve(__dirname, '../.env');
+if (fs.existsSync(serverEnvPath)) {
+  dotenv.config({ path: serverEnvPath, override: true });
+}
 
 const app = express();
 const PORT = process.env.PORT || 5092;
