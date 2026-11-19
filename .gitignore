@@ -19,6 +19,10 @@ uploads/
 server/uploads/resumes/*
 !server/uploads/resumes/.gitkeep
 
+# Persistent runtime data stores (Preserved across deployments)
+server/data/*.json
+!server/data/.gitkeep
+
 # Operating System files
 .DS_Store
 Thumbs.db
