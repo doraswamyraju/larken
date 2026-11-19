@@ -1,8 +1,26 @@
 import nodemailer from 'nodemailer';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function loadEnv() {
+  dotenv.config();
+  const serverEnv = path.resolve(__dirname, '../../.env');
+  if (fs.existsSync(serverEnv)) {
+    dotenv.config({ path: serverEnv, override: true });
+  }
+  const rootEnv = path.resolve(__dirname, '../../../.env');
+  if (fs.existsSync(rootEnv)) {
+    dotenv.config({ path: rootEnv, override: true });
+  }
+}
+
+// Initial load
+loadEnv();
 
 /**
  * Build dynamic transporter based on current process.env configuration.
@@ -11,7 +29,9 @@ dotenv.config();
  *  2. Linux local sendmail fallback (/usr/sbin/sendmail)
  */
 function createTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.hostinger.com';
+  loadEnv(); // Re-read in case .env was edited
+
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
   const secure = process.env.SMTP_SECURE === 'true' || port === 465;
   const user = (process.env.SMTP_USER || '').trim();
@@ -74,14 +94,15 @@ export const emailService = {
       return {
         configured: true,
         healthy: true,
-        message: `SMTP connection established successfully with ${process.env.SMTP_HOST || 'smtp.hostinger.com'}:${process.env.SMTP_PORT || 465}`,
+        message: `SMTP connection established successfully with ${process.env.SMTP_HOST || 'smtp.gmail.com'}:${process.env.SMTP_PORT || 465} (Account: ${process.env.SMTP_USER})`,
       };
     } catch (err) {
       return {
         configured: true,
         healthy: false,
         message: `SMTP connection error: ${err.message}`,
-        hint: 'Check if email password in server/.env is accurate and firewall allows outbound connection.',
+        accountAttempted: process.env.SMTP_USER,
+        hint: 'Verify that SMTP_USER matches the exact Google account email for this app password, and run pm2 restart larken --update-env.',
       };
     }
   },

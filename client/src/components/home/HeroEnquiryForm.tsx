@@ -128,7 +128,7 @@ export const HeroEnquiryForm: React.FC<HeroEnquiryFormProps> = ({ className = ''
             onChange={handleChange}
             placeholder="John Doe"
             required
-            className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400"
+            className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 bg-white text-slate-900 font-medium"
           />
         </div>
 
@@ -144,7 +144,7 @@ export const HeroEnquiryForm: React.FC<HeroEnquiryFormProps> = ({ className = ''
               onChange={handleChange}
               placeholder="name@company.com"
               required
-              className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400"
+              className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 bg-white text-slate-900 font-medium"
             />
           </div>
 
@@ -159,7 +159,7 @@ export const HeroEnquiryForm: React.FC<HeroEnquiryFormProps> = ({ className = ''
               onChange={handleChange}
               placeholder="+1 (555) 000-0000"
               required
-              className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400"
+              className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 bg-white text-slate-900 font-medium"
             />
           </div>
         </div>
@@ -172,7 +172,7 @@ export const HeroEnquiryForm: React.FC<HeroEnquiryFormProps> = ({ className = ''
             name="serviceInterest"
             value={formData.serviceInterest}
             onChange={handleChange}
-            className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all bg-white"
+            className="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all bg-white text-slate-900 font-medium cursor-pointer"
           >
             <option value="IT Consulting">IT Consulting (Architecture, Cloud, AI)</option>
             <option value="IT Staffing">IT Staffing (Tech Specialists & Teams)</option>
@@ -190,7 +190,7 @@ export const HeroEnquiryForm: React.FC<HeroEnquiryFormProps> = ({ className = ''
             value={formData.message}
             onChange={handleChange}
             placeholder="Briefly describe your objectives, technologies, or hiring timeline..."
-            className="w-full text-sm px-3.5 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 resize-none"
+            className="w-full text-sm px-3.5 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-larken-blue focus:border-larken-blue outline-none transition-all placeholder:text-slate-400 resize-none bg-white text-slate-900 font-medium"
           ></textarea>
         </div>
 

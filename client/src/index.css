@@ -15,6 +15,10 @@
     font-weight: 700;
     letter-spacing: -0.02em;
   }
+
+  input, textarea, select {
+    color: #0F172A !important;
+  }
 }
 
 @layer utilities {
