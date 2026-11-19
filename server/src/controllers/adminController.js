@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import path from 'path';
 import fs from 'fs';
 import { pool, isDbConnected } from '../config/db.js';
+import { emailService } from '../services/emailService.js';
 
 export const adminController = {
   /**
@@ -69,6 +70,27 @@ export const adminController = {
       return res.sendFile(filePath);
     } catch (err) {
       return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * Diagnostic Test Email Endpoint
+   */
+  async testEmail(req, res) {
+    try {
+      const { targetEmail } = req.body || {};
+      const result = await emailService.sendTestEmail(targetEmail);
+      return res.json({
+        success: true,
+        message: 'Test email successfully sent to contracts@larkenit.com.',
+        result,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Test email dispatch failed: ${err.message}`,
+        hint: 'Please configure SMTP_USER=contracts@larkenit.com and SMTP_PASS in /var/www/larken/server/.env',
+      });
     }
   },
 };

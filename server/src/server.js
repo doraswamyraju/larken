@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import { initDatabase } from './config/db.js';
 import { standardLimiter } from './middleware/rateLimiter.js';
 
+import { emailService } from './services/emailService.js';
 import enquiriesRoutes from './routes/enquiriesRoutes.js';
 import jobsRoutes from './routes/jobsRoutes.js';
 import applicationsRoutes from './routes/applicationsRoutes.js';
@@ -32,14 +33,19 @@ app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 // Apply rate limiting across /api endpoints
 app.use('/api', standardLimiter);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
+// Health check endpoint with email diagnostic
+app.get('/api/health', async (req, res) => {
+  const emailStatus = await emailService.verifyConnection();
   res.json({
     status: 'healthy',
     company: 'Larken Technologies LLC',
     domain: 'larkenit.com',
     location: 'Overland Park, KS',
     timestamp: new Date().toISOString(),
+    emailRouting: {
+      recipient: process.env.NOTIFICATION_RECEIVER || 'contracts@larkenit.com',
+      status: emailStatus,
+    },
   });
 });
 

@@ -9,11 +9,11 @@ export const enquiriesController = {
     try {
       const { fullName, email, phone, serviceInterest, message } = req.body;
 
-      // Validation
-      if (!fullName || !email || !phone) {
+      // Validation - Full name and email are mandatory
+      if (!fullName || !email) {
         return res.status(400).json({
           success: false,
-          message: 'Full name, email address, and phone number are required.',
+          message: 'Full name and business email address are required.',
         });
       }
 
@@ -27,6 +27,7 @@ export const enquiriesController = {
 
       const validServices = ['IT Consulting', 'IT Staffing', 'General Enquiry'];
       const selectedService = validServices.includes(serviceInterest) ? serviceInterest : 'General Enquiry';
+      const sanitizedPhone = (phone || '').trim();
 
       let enquiryId = null;
 
@@ -39,7 +40,7 @@ export const enquiriesController = {
         const result = await pool.query(query, [
           fullName.trim(),
           email.trim().toLowerCase(),
-          phone.trim(),
+          sanitizedPhone,
           selectedService,
           (message || '').trim(),
         ]);
@@ -48,12 +49,12 @@ export const enquiriesController = {
         enquiryId = 'mem_' + Date.now();
       }
 
-      // Notify contracts@larkenit.com asynchronously
-      emailService.notifyEnquiry({
+      // Notify contracts@larkenit.com
+      const emailResult = await emailService.notifyEnquiry({
         id: enquiryId,
         fullName: fullName.trim(),
         email: email.trim().toLowerCase(),
-        phone: phone.trim(),
+        phone: sanitizedPhone,
         serviceInterest: selectedService,
         message: (message || '').trim(),
       });

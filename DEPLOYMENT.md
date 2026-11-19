@@ -50,7 +50,7 @@ git clone https://github.com/doraswamyraju/larken.git /var/www/larken
 cd /var/www/larken
 ```
 
-### B. Setup Environment Variables
+### B. Setup Environment Variables & Email Routing
 ```bash
 cd /var/www/larken/server
 cp .env.example .env
@@ -60,13 +60,33 @@ Ensure the `.env` contains:
 ```env
 NODE_ENV=production
 PORT=5092
+
+# Database (PostgreSQL)
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=larken_db
 DB_USER=larken_user
 DB_PASSWORD=your_db_password
-NOTIFICATION_EMAIL=contracts@larkenit.com
+
+# Email Notifications -> contracts@larkenit.com
+# Use your Hostinger Email credentials for contracts@larkenit.com
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=contracts@larkenit.com
+SMTP_PASS=your_actual_email_password_here
+NOTIFICATION_RECEIVER=contracts@larkenit.com
 ```
+
+> **Verifying Email Delivery:**
+> Once configured, you can test email connectivity with:
+> ```bash
+> # 1. Check SMTP status
+> curl http://127.0.0.1:5092/api/health
+> 
+> # 2. Dispatch a live test email directly to contracts@larkenit.com
+> curl -X POST http://127.0.0.1:5092/api/admin/test-email
+> ```
 
 ### C. Build React Frontend & Install Dependencies
 ```bash
