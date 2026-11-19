@@ -33,11 +33,11 @@ function createTransporter() {
 
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
-  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-  const user = (process.env.SMTP_USER || '').trim();
+  const secure = port === 465;
+  const user = (process.env.SMTP_USER || '').trim().replace(/['"\r\n]/g, '');
   const rawPass = process.env.SMTP_PASS || '';
-  // Strip all whitespace/spaces commonly present in Google App Passwords
-  const pass = rawPass.trim().replace(/\s+/g, '');
+  // Strip quotes, spaces, newlines commonly introduced during copy/pasting in nano
+  const pass = rawPass.trim().replace(/['"\s\r\n]/g, '');
 
   // Check if SMTP credentials are provided and not default placeholders
   const isConfigured = user && pass && pass !== 'your_email_password' && pass !== 'your_strong_password_here';
@@ -47,6 +47,7 @@ function createTransporter() {
       host,
       port,
       secure,
+      requireTLS: !secure,
       auth: {
         user,
         pass,
@@ -54,8 +55,8 @@ function createTransporter() {
       tls: {
         rejectUnauthorized: false, // Prevent issues with self-signed or proxy TLS certs on VPS
       },
-      connectionTimeout: 10000, // 10s timeout
-      greetingTimeout: 10000,
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
     });
   }
 
