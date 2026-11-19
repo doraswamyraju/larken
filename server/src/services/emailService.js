@@ -14,8 +14,10 @@ function createTransporter() {
   const host = process.env.SMTP_HOST || 'smtp.hostinger.com';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
   const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = (process.env.SMTP_USER || '').trim();
+  const rawPass = process.env.SMTP_PASS || '';
+  // Strip all whitespace/spaces commonly present in Google App Passwords
+  const pass = rawPass.trim().replace(/\s+/g, '');
 
   // Check if SMTP credentials are provided and not default placeholders
   const isConfigured = user && pass && pass !== 'your_email_password' && pass !== 'your_strong_password_here';
