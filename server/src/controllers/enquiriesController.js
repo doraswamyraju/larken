@@ -1,4 +1,4 @@
-import { pool, isDbConnected } from '../config/db.js';
+import { storageService } from '../services/storageService.js';
 import { emailService } from '../services/emailService.js';
 
 export const enquiriesController = {
@@ -7,7 +7,7 @@ export const enquiriesController = {
    */
   async createEnquiry(req, res) {
     try {
-      const { fullName, email, phone, serviceInterest, message } = req.body;
+      const { fullName, email, phone, serviceInterest, message, source } = req.body;
 
       // Validation - Full name and email are mandatory
       if (!fullName || !email) {
@@ -29,40 +29,33 @@ export const enquiriesController = {
       const selectedService = validServices.includes(serviceInterest) ? serviceInterest : 'General Enquiry';
       const sanitizedPhone = (phone || '').trim();
 
-      let enquiryId = null;
-
-      if (isDbConnected()) {
-        const query = `
-          INSERT INTO business_enquiries (full_name, email, phone, service_interest, message, status)
-          VALUES ($1, $2, $3, $4, $5, 'new')
-          RETURNING id, created_at;
-        `;
-        const result = await pool.query(query, [
-          fullName.trim(),
-          email.trim().toLowerCase(),
-          sanitizedPhone,
-          selectedService,
-          (message || '').trim(),
-        ]);
-        enquiryId = result.rows[0].id;
-      } else {
-        enquiryId = 'mem_' + Date.now();
-      }
-
-      // Notify contracts@larkenit.com
-      const emailResult = await emailService.notifyEnquiry({
-        id: enquiryId,
+      // 1. Permanently store in PostgreSQL (and persistent disk fallback) for Dashboard
+      const savedLead = await storageService.saveEnquiry({
         fullName: fullName.trim(),
         email: email.trim().toLowerCase(),
         phone: sanitizedPhone,
         serviceInterest: selectedService,
         message: (message || '').trim(),
+        source: source || 'Website Contact Form',
+      });
+
+      // 2. Dispatch email notification directly to contracts@larkenit.com
+      const emailResult = await emailService.notifyEnquiry({
+        id: savedLead.id,
+        fullName: savedLead.fullName,
+        email: savedLead.email,
+        phone: savedLead.phone,
+        serviceInterest: savedLead.serviceInterest,
+        message: savedLead.message,
       });
 
       return res.status(201).json({
         success: true,
         message: 'Thank you for contacting Larken Technologies. Your enquiry has been received and routed to our team.',
-        data: { id: enquiryId },
+        data: {
+          id: savedLead.id,
+          emailDispatched: emailResult.success,
+        },
       });
     } catch (err) {
       console.error('Error creating enquiry:', err);
@@ -74,30 +67,25 @@ export const enquiriesController = {
   },
 
   /**
-   * Get all enquiries (Admin)
+   * Get all enquiries (Admin Dashboard)
    */
   async getEnquiries(req, res) {
     try {
-      if (!isDbConnected()) {
-        return res.json({ success: true, data: [] });
-      }
-      const result = await pool.query('SELECT * FROM business_enquiries ORDER BY created_at DESC');
-      return res.json({ success: true, data: result.rows });
+      const leads = await storageService.getAllEnquiries();
+      return res.json({ success: true, data: leads });
     } catch (err) {
       return res.status(500).json({ success: false, message: err.message });
     }
   },
 
   /**
-   * Update enquiry status (Admin)
+   * Update enquiry status (Admin Dashboard)
    */
   async updateEnquiryStatus(req, res) {
     try {
       const { id } = req.params;
       const { status } = req.body;
-      if (isDbConnected()) {
-        await pool.query('UPDATE business_enquiries SET status = $1 WHERE id = $2', [status, id]);
-      }
+      await storageService.updateStatus(id, status);
       return res.json({ success: true, message: 'Status updated.' });
     } catch (err) {
       return res.status(500).json({ success: false, message: err.message });
